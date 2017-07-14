@@ -1,4 +1,4 @@
-package com.roomer.roomer;
+package com.roomer.activities;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

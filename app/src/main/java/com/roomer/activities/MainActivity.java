@@ -1,4 +1,4 @@
-package com.roomer.roomer;
+package com.roomer.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

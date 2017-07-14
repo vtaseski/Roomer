@@ -1,4 +1,4 @@
-package com.roomer.roomer;
+package com.roomer.activities;
 
 import org.junit.Test;
 
