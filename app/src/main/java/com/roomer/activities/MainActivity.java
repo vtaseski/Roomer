@@ -1,8 +1,10 @@
 package com.roomer.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +14,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.roomer.models.Apartment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+import com.roomer.adapters.MainAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView lvApartments;
+
+    MainAdapter mainAdapter;
+
+    ArrayList<Apartment> apartmentArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        apartmentArrayList = new ArrayList<>();
+
+        getAllApartments gaa = new getAllApartments();
+        gaa.execute("api/Apartments?take=3");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,6 +69,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        lvApartments = (ListView)findViewById(R.id.lvApartments);
+
     }
 
     @Override
@@ -74,6 +106,86 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+    class getAllApartments extends AsyncTask<String, Void, String> {
+
+        private Exception exception;
+
+        protected void onPreExecute() {
+             // progressBar.setVisibility(View.VISIBLE);
+            // responseView.setText("");
+        }
+
+        protected String doInBackground(String... params) {
+            String API_URL = "http://n3mesis-001-site1.htempurl.com/";
+            try {
+                URL url = new URL(API_URL + params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if(response == null) {
+                response = "THERE WAS AN ERROR";
+            } else {;
+                Log.i("INFO", response);
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject o = jsonArray.getJSONObject(i);
+                        JSONObject c = o.getJSONObject("Currency");
+                        JSONObject m = o.getJSONObject("MainPicture");
+
+                         Apartment a = new Apartment(
+                                o.getInt("Id"),
+                                o.getString("Title"),
+                                o.getInt("Rooms"),
+                                o.getString("GPS"),
+                                o.getInt("SqMeters"),
+                                o.getBoolean("Bathroom"),
+                                o.getBoolean("Kitchen"),
+                                o.getBoolean("Furnished"),
+                                o.getString("Phone"),
+                                o.getBoolean("Bedroom"),
+                                o.getString("Description"),
+                                o.getInt("Price"),
+                                o.getInt("Floor"),
+                                o.getString("Location"),
+                                o.getInt("Views"),
+                                o.getString("Created"),
+                                c.getString("Name"),
+                                m.getString("Path")
+                        );
+
+                        apartmentArrayList.add(a);
+                    }
+                    mainAdapter = new MainAdapter(apartmentArrayList, MainActivity.this);
+                    lvApartments.setAdapter(mainAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
