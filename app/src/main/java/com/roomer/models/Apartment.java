@@ -15,6 +15,8 @@ public class Apartment {
 
     public String GPS;
 
+    public String Category;
+
     public int SqMeters;
 
     public boolean Bathroom;
@@ -46,7 +48,7 @@ public class Apartment {
     public Apartment(int id, String title, int rooms, String GPS, int sqMeters, boolean bathroom,
                      boolean kitchen, boolean furnished, String phone, boolean bedroom, String description,
                      int price, int floor, String location, int views, String created,
-                     String currency, String mainPicture
+                     String currency, String mainPicture, String category
                     ) {
         Id = id;
         Title = title;
@@ -66,6 +68,7 @@ public class Apartment {
         Created = created;
         Currency = currency;
         MainPicture = mainPicture;
+        Category = category;
     }
 
     public int getId() {
@@ -75,6 +78,8 @@ public class Apartment {
     public void setId(int id) {
         Id = id;
     }
+
+    public String getCategory() { return Category; }
 
     public String getTitle() {
         return Title;

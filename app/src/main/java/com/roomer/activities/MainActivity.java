@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.roomer.models.Apartment;
@@ -28,16 +30,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 import com.roomer.adapters.MainAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView lvApartments;
+    public ListView lvApartments;
 
     MainAdapter mainAdapter;
 
-    ArrayList<Apartment> apartmentArrayList;
+    public ArrayList<Apartment> apartmentArrayList;
+
+    boolean firstLoad = true;
+
+    public boolean flag_loading;
+    public int skip = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +54,9 @@ public class MainActivity extends AppCompatActivity
 
         apartmentArrayList = new ArrayList<>();
 
-        getAllApartments gaa = new getAllApartments();
-        gaa.execute("api/Apartments?take=3");
+        flag_loading = false;
+
+        new getAllApartments().execute("api/Apartments?take=5");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,7 +81,34 @@ public class MainActivity extends AppCompatActivity
 
         lvApartments = (ListView)findViewById(R.id.lvApartments);
 
+        lvApartments.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.e("test", "on scrool");
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0) {
+                    if(flag_loading == false) {
+                        flag_loading = true;
+                        addItems();
+                    }
+                }
+            }
+        });
+
     }
+
+    public void addItems() {
+        skip += 3;
+        String skipString = skip + "";
+        Log.d("skipot", skipString);
+        new getAllApartments().execute("api/Apartments?skip=" + skipString + "&take=4");
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -154,6 +190,7 @@ public class MainActivity extends AppCompatActivity
                         JSONObject o = jsonArray.getJSONObject(i);
                         JSONObject c = o.getJSONObject("Currency");
                         JSONObject m = o.getJSONObject("MainPicture");
+                        JSONObject cg = o.getJSONObject("Category");
 
                          Apartment a = new Apartment(
                                 o.getInt("Id"),
@@ -173,13 +210,21 @@ public class MainActivity extends AppCompatActivity
                                 o.getInt("Views"),
                                 o.getString("Created"),
                                 c.getString("Name"),
-                                m.getString("Path")
+                                m.getString("Path"),
+                                cg.getString("NameMkd")
                         );
 
                         apartmentArrayList.add(a);
                     }
-                    mainAdapter = new MainAdapter(apartmentArrayList, MainActivity.this);
-                    lvApartments.setAdapter(mainAdapter);
+
+                    if(firstLoad) {
+                        mainAdapter = new MainAdapter(apartmentArrayList, MainActivity.this);
+                        lvApartments.setAdapter(mainAdapter);
+                        firstLoad = false;
+                    }
+
+                    flag_loading = false;
+                    mainAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
