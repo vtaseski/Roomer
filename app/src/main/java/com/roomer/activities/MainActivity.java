@@ -1,10 +1,14 @@
 package com.roomer.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,12 +22,11 @@ import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.roomer.data.Data;
 import com.roomer.models.Apartment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     boolean firstLoad = true;
 
     public boolean flag_loading;
+
     public int skip = 0;
 
     @Override
@@ -76,11 +80,10 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+        setNavigationMenu();
 
         lvApartments = (ListView)findViewById(R.id.lvApartments);
-
         lvApartments.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -101,12 +104,25 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void setNavigationMenu() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        Data d = new Data(this);
+
+        if(d.isLoggedIn()) {
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.navigation_loggedin);
+        } else {
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.navigation_loggedout);
+        }
+    }
+
     public void addItems() {
         skip += 3;
         String skipString = skip + "";
-        Log.d("skipot", skipString);
         new getAllApartments().execute("api/Apartments?skip=" + skipString + "&take=4");
-
     }
 
 
@@ -141,7 +157,6 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
 
     class getAllApartments extends AsyncTask<String, Void, String> {
 
@@ -237,18 +252,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.login) {
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        } else if (id == R.id.logout) {
+            Data d = new Data(this);
+            d.logout();
+            setNavigationMenu();
+        } else if (id == R.id.mine) {
+            Intent loginIntent = new Intent(MainActivity.this, MyAdsActivity.class);
+            startActivity(loginIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -5,18 +5,14 @@
         android:id="@+id/loggedOut"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/login"
-            android:icon="@drawable/ic_input_black_login"
-            android:title="Најава" />
-    </group>
-
-    <group
-        android:id="@+id/loggedIn"
-        android:checkableBehavior="single">
-        <item
             android:id="@+id/logout"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Одјава" />
+            android:icon="@drawable/ic_input_black_login"
+            android:title="Одјави се"/>
+        <item
+            android:id="@+id/mine"
+            android:icon="@drawable/ic_account_balance_black"
+            android:title="Мои станови" />
+
     </group>
 
     <item android:title="Контакт">
@@ -27,5 +23,4 @@
                 android:title="Контактирајте не" />
         </menu>
     </item>
-
 </menu>
