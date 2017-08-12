@@ -5,9 +5,11 @@
     tools:context="com.roomer.activities.RoommatesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/lvRoomMates"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:divider="@color/cardview_light_background"
+        android:drawSelectorOnTop="true" />
 
 </FrameLayout>

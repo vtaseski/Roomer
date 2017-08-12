@@ -2,12 +2,30 @@ package com.roomer.activities;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
+import com.roomer.adapters.Main2Adapter;
+import com.roomer.adapters.MainAdapter;
+import com.roomer.models.Apartment;
+import com.roomer.models.Roommate;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 
 /**
@@ -27,6 +45,18 @@ public class RoommatesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public ListView lvRoomMates;
+
+    Main2Adapter main2Adapter;
+
+    public ArrayList<Roommate> roommateArrayList;
+
+    boolean firstLoad = true;
+
+    public boolean flag_loading;
+
+    public int skip = 0;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,8 +95,109 @@ public class RoommatesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_roommates, container, false);
+        View view = inflater.inflate(R.layout.fragment_roommates, container, false);
+        roommateArrayList = new ArrayList<>();
+
+        flag_loading = false;
+        lvRoomMates = (ListView)view.findViewById(R.id.lvRoomMates);
+        new getRoomMates().execute("api/Roommates/Get?take=6");
+
+        return view;
     }
+    public void addItems() {
+        skip += 3;
+        String skipString = skip + "";
+        new getRoomMates().execute("api/Roommates/Get?skip=" + skipString + "&take=4");
+    }
+
+    class getRoomMates extends AsyncTask<String, Void, String> {
+
+        private Exception exception;
+
+        protected void onPreExecute() {
+            // progressBar.setVisibility(View.VISIBLE);
+            // responseView.setText("");
+        }
+
+        protected String doInBackground(String... params) {
+            String API_URL = "http://n3mesis-001-site1.htempurl.com/";
+            try {
+                URL url = new URL(API_URL + params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            Log.i("INFO", response);
+            if(response == null) {
+                response = "THERE WAS AN ERROR";
+            } else {;
+                Log.i("INFO", response);
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject o = jsonArray.getJSONObject(i);
+                        JSONObject u = o.getJSONObject("User");
+
+
+
+
+                        Roommate r = new Roommate (
+                                o.getInt("Id"),
+                                o.getString("UserId"),
+                                o.getString("Title"),
+                                o.getString("Facebook"),
+                                o.getString("Phone"),
+                                o.getString("Description"),
+                                o.getString("Created"),
+                                o.getInt("PriceFrom"),
+                                o.getInt("PriceTo"),
+                                o.getInt("M2From"),
+                                o.getInt("M2To"),
+                                o.getBoolean("SeparateRoom"),
+                                o.getBoolean("FixedPrice"),
+                                u.getString("FirstName"),
+                                u.getString("LastName"),
+                                u.getString("PicturePath")
+
+
+                        );
+                        roommateArrayList.add(r);
+                    }
+
+                        main2Adapter = new Main2Adapter(roommateArrayList, getActivity());
+                        lvRoomMates.setAdapter(main2Adapter);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

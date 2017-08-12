@@ -34,8 +34,6 @@ public class MainAdapter extends BaseAdapter {
     public class ViewHolder {
         ImageView imgMain;
         TextView title, rooms, sqMeters, price, furnished, location, category;
-
-
     }
 
     public MainAdapter(ArrayList<Apartment> apps, Context context) {
