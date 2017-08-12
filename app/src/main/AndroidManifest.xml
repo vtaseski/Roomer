@@ -44,6 +44,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.roomer.activities.MainActivity" />
         </activity>
+        <activity android:name=".DetailsActivity"></activity>
+
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyBoWvO6OedkNH3NdysRkjOcNEBdPWgsJy8" />
     </application>
 
 </manifest>

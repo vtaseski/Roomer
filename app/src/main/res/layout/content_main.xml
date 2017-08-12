@@ -9,11 +9,10 @@
     tools:context="com.roomer.activities.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ListView
-        android:id="@+id/lvApartments"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/cardview_light_background"
-        android:drawSelectorOnTop="true" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </LinearLayout>

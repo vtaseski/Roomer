@@ -4,11 +4,17 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -37,30 +43,31 @@ import java.util.ArrayList;
 import com.roomer.adapters.MainAdapter;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,FlatsFragment.OnFragmentInteractionListener,
+        RoommatesFragment.OnFragmentInteractionListener {
 
-    public ListView lvApartments;
 
-    MainAdapter mainAdapter;
 
-    public ArrayList<Apartment> apartmentArrayList;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    boolean firstLoad = true;
+    private ViewPager mViewPager;
 
-    public boolean flag_loading;
-
-    public int skip = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        apartmentArrayList = new ArrayList<>();
 
-        flag_loading = false;
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        new getAllApartments().execute("api/Apartments?take=5");
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,25 +90,6 @@ public class MainActivity extends AppCompatActivity
 
         setNavigationMenu();
 
-        lvApartments = (ListView)findViewById(R.id.lvApartments);
-        lvApartments.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.e("test", "on scrool");
-            }
-
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-
-                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0) {
-                    if(flag_loading == false) {
-                        flag_loading = true;
-                        addItems();
-                    }
-                }
-            }
-        });
-
     }
 
     public void setNavigationMenu() {
@@ -118,11 +106,29 @@ public class MainActivity extends AppCompatActivity
             navigationView.inflateMenu(R.menu.navigation_loggedout);
         }
     }
+    public static class PlaceholderFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public void addItems() {
-        skip += 3;
-        String skipString = skip + "";
-        new getAllApartments().execute("api/Apartments?skip=" + skipString + "&take=4");
+        public PlaceholderFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+
     }
 
 
@@ -158,94 +164,45 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    class getAllApartments extends AsyncTask<String, Void, String> {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private Exception exception;
-
-        protected void onPreExecute() {
-             // progressBar.setVisibility(View.VISIBLE);
-            // responseView.setText("");
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
-        protected String doInBackground(String... params) {
-            String API_URL = "http://n3mesis-001-site1.htempurl.com/";
-            try {
-                URL url = new URL(API_URL + params[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return new FlatsFragment();
+
+                case 1:
+                    return new RoommatesFragment();
             }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }
+
+            return null;
         }
 
-        protected void onPostExecute(String response) {
-            if(response == null) {
-                response = "THERE WAS AN ERROR";
-            } else {;
-                Log.i("INFO", response);
+        @Override
+        public int getCount() {
+            // Show 2 total pages.
+            return 2;
+        }
 
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject o = jsonArray.getJSONObject(i);
-                        JSONObject c = o.getJSONObject("Currency");
-                        JSONObject m = o.getJSONObject("MainPicture");
-                        JSONObject cg = o.getJSONObject("Category");
-
-                         Apartment a = new Apartment(
-                                o.getInt("Id"),
-                                o.getString("Title"),
-                                o.getInt("Rooms"),
-                                o.getString("GPS"),
-                                o.getInt("SqMeters"),
-                                o.getBoolean("Bathroom"),
-                                o.getBoolean("Kitchen"),
-                                o.getBoolean("Furnished"),
-                                o.getString("Phone"),
-                                o.getBoolean("Bedroom"),
-                                o.getString("Description"),
-                                o.getInt("Price"),
-                                o.getInt("Floor"),
-                                o.getString("Location"),
-                                o.getInt("Views"),
-                                o.getString("Created"),
-                                c.getString("Name"),
-                                m.getString("Path"),
-                                cg.getString("NameMkd")
-                        );
-
-                        apartmentArrayList.add(a);
-                    }
-
-                    if(firstLoad) {
-                        mainAdapter = new MainAdapter(apartmentArrayList, MainActivity.this);
-                        lvApartments.setAdapter(mainAdapter);
-                        firstLoad = false;
-                    }
-
-                    flag_loading = false;
-                    mainAdapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "СТАНОВИ";
+                case 1:
+                    return "ЦИМЕРИ";
             }
+            return null;
         }
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -267,5 +224,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 }

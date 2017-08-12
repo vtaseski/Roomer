@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.roomer.activities.FlatsFragment">
+        <ListView
+            android:id="@+id/lvApartments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/cardview_light_background"
+            android:drawSelectorOnTop="true" />
+</FrameLayout>
