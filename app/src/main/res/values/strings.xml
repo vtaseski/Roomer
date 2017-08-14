@@ -8,9 +8,14 @@
     <string name="title_activity_login">Најава</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Корисничко име</string>
+    <string name="prompt_email">E-mail адреса</string>
+    <string name="prompt_name">Име</string>
+    <string name="prompt_last_name">Презиме</string>
+    <string name="prompt_user_name">Корисничко име</string>
+    <string name="prompt_phone">Телефон</string>
     <string name="prompt_password">Лозинка</string>
     <string name="action_sign_in">Најави се</string>
+    <string name="action_sign_up">Регистрирај се</string>
     <string name="action_sign_in_short">Најави се</string>
     <string name="error_invalid_email">Невалидно корисничко име</string>
     <string name="error_invalid_password">Лозинката е прекратка</string>
@@ -24,4 +29,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_register">Регистрирање корисник</string>
 </resources>
