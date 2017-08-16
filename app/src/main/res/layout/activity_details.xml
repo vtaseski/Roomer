@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context="com.roomer.activities.DetailsActivity"
-
         >
 
 
@@ -60,6 +59,15 @@
             android:layout_alignLeft="@+id/txtIsFurnished"
             android:layout_alignStart="@+id/txtIsFurnished" />
 
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="385dp"
+            android:background="#000000" />
+
 
         <TextView
             android:id="@+id/txtPriceNumber"
@@ -86,6 +94,14 @@
             android:layout_alignBottom="@+id/txtPriceNumber"
             android:layout_alignLeft="@+id/txtKitchen"
             android:layout_alignStart="@+id/txtKitchen" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="435dp"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/txtSqMetersNumber"
@@ -118,28 +134,29 @@
             android:id="@+id/txtKitchen"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtPhone"
+            android:layout_alignStart="@+id/txtPhone"
+            android:layout_below="@+id/view2"
+            android:layout_marginTop="15dp"
             android:text="TextView"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_alignBaseline="@+id/txtSqMetersNumber"
-            android:layout_alignBottom="@+id/txtSqMetersNumber"
-            android:layout_alignLeft="@+id/txtPhone"
-            android:layout_alignStart="@+id/txtPhone" />
+            android:textStyle="bold" />
 
 
         <TextView
             android:id="@+id/txtLocation1"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/view4"
+            android:layout_alignLeft="@+id/txtDescription"
+            android:layout_alignRight="@+id/view4"
+            android:layout_alignStart="@+id/txtDescription"
+            android:layout_alignTop="@+id/view4"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            android:layout_below="@+id/txtPhone"
-            android:layout_toRightOf="@+id/txtSqMetersNumber"
-            android:layout_toEndOf="@+id/txtSqMetersNumber"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp" />
+            android:textStyle="bold" />
 
 
         <TextView
@@ -149,35 +166,58 @@
             android:text="TextView"
             android:textSize="16dp"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            android:layout_below="@+id/txtKitchen"
-            android:layout_alignLeft="@+id/txtLocation1"
-            android:layout_alignStart="@+id/txtLocation1" />
+            android:layout_alignBottom="@+id/view4"
+            android:layout_toRightOf="@+id/txtSqMetersNumber"
+            android:layout_toEndOf="@+id/txtSqMetersNumber"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="16dp" />
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="490dp"
+            android:background="#000000" />
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="545dp"
+            android:background="#000000" />
 
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/txtLocation1"
+            android:layout_marginTop="10dp"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/txtCreated"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/view1"
+            android:layout_alignRight="@+id/view1"
+            android:layout_below="@+id/carouselView"
             android:elegantTextHeight="true"
+            android:gravity="right"
             android:text="TextView"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_alignBaseline="@+id/txtLocation1"
-            android:layout_alignBottom="@+id/txtLocation1"
-            android:layout_alignLeft="@+id/txtBathroom"
-            android:layout_alignStart="@+id/txtBathroom" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtCreated"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/txtCreated"
-            android:layout_below="@+id/txtCreated"
-            android:layout_marginTop="35dp"
+            android:layout_alignLeft="@+id/txtBathroom"
+            android:layout_alignStart="@+id/txtBathroom"
+            android:layout_below="@+id/txtLocation1"
+            android:layout_marginTop="17dp"
             android:text="Опис;"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -194,6 +234,7 @@
             android:layout_marginBottom="26dp"
             tools:context=".DetailsActivity"
             tools:layout="@android:layout/simple_gallery_item" />
+
     </RelativeLayout>
 
 </ScrollView>

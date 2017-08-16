@@ -47,7 +47,7 @@
 
             <TextView
                 android:id="@+id/txtFurnished"
-                android:layout_width="124dp"
+                android:layout_width="140dp"
                 android:layout_height="38dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"

@@ -1,5 +1,6 @@
 package com.roomer.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -113,6 +114,7 @@ public class FlatsFragment extends Fragment {
                 Bundle extras = new Bundle();
                 extras.putInt("id",a.getId());
                 extras.putString("gps",a.getGPS());
+                extras.putString("title",a.getTitle());
                 Intent myintent = new Intent(getActivity(), DetailsActivity.class);
                 myintent.putExtras(extras);
                 Log.e("Slikaa", a.getMainPicture());
@@ -160,10 +162,13 @@ public class FlatsFragment extends Fragment {
     class getAllApartments extends AsyncTask<String, Void, String> {
 
         private Exception exception;
+        private ProgressDialog dialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             // progressBar.setVisibility(View.VISIBLE);
             // responseView.setText("");
+            this.dialog.setMessage("Please wait");
+            this.dialog.show();
         }
 
         protected String doInBackground(String... params) {
@@ -230,6 +235,9 @@ public class FlatsFragment extends Fragment {
 
                         );
                         apartmentArrayList.add(a);
+                    }
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
                     }
                     if(firstLoad) {
                         mainAdapter = new MainAdapter(apartmentArrayList, getActivity());

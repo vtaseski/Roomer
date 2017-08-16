@@ -1,5 +1,6 @@
 package com.roomer.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -113,10 +114,13 @@ public class RoommatesFragment extends Fragment {
     class getRoomMates extends AsyncTask<String, Void, String> {
 
         private Exception exception;
+        private ProgressDialog dialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
             // progressBar.setVisibility(View.VISIBLE);
             // responseView.setText("");
+            this.dialog.setMessage("Please wait");
+            this.dialog.show();
         }
 
         protected String doInBackground(String... params) {
@@ -182,6 +186,9 @@ public class RoommatesFragment extends Fragment {
 
                         );
                         roommateArrayList.add(r);
+                    }
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
                     }
 
                         main2Adapter = new Main2Adapter(roommateArrayList, getActivity());

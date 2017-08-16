@@ -54,12 +54,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
+        //setTitle("My new title");
         picturesPath=new ArrayList<String>();
         Bundle extras = getIntent().getExtras();
 
         int s = extras.getInt("id");
         gps=extras.getString("gps");
+        String title=extras.getString("title");
+        setTitle(title);
         Log.i("GPSSS", gps);
 
 
@@ -207,9 +209,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     TextView txtLocation1=(TextView) findViewById(R.id.txtLocation1);
                     txtLocation1.setText("Локација:  " + a.getLocation());
                     TextView txtPhone=(TextView) findViewById(R.id.txtPhone);
-                    txtPhone.setText("Телефон: "+ a.getPhone());
+                    txtPhone.setText("Тел:"+ a.getPhone().substring(0,12));
                     TextView txtCreated=(TextView) findViewById(R.id.txtCreated);
-                    txtCreated.setText("Датум: " + a.getCreated().split("T")[0]);
+                    txtCreated.setText(a.getCreated().split("T")[0]);
                     TextView txtDescription= (TextView) findViewById(R.id.txtDescription);
                     txtDescription.setText("Опис:  \n" + a.getDescription());
 
