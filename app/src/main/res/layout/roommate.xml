@@ -213,6 +213,16 @@
             android:layout_alignTop="@+id/textView20"
             android:text="TextView" />
 
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/rmmPhone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:background="#000000" />
+
         <TextView
             android:id="@+id/rmmDescription"
             android:layout_width="match_parent"

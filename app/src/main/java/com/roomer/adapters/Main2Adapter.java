@@ -84,7 +84,7 @@ public class Main2Adapter extends BaseAdapter {
         viewHolder.rmmPrice.setText(roomatesList.get(position).getPriceFrom() + "eur.  -  " + roomatesList.get(position).getPriceTo()+"eur.");
         viewHolder.rmmSqMeters.setText(roomatesList.get(position).getM2From() + "  -  " + roomatesList.get(position).getM2To());
         viewHolder.rmmSeparateRoom.setText(roomatesList.get(position).isSeparateRoom() ? "Да" : "Не");
-        viewHolder.rmmDate.setText(roomatesList.get(position).getCreated().split("T")[0] + " " + roomatesList.get(position).getCreated().split("T")[1] );
+        viewHolder.rmmDate.setText(roomatesList.get(position).getCreated().split("T")[0] + " " + roomatesList.get(position).getCreated().split("T")[1].substring(0,5) + " ч");
         viewHolder.rmmPhone.setText(roomatesList.get(position).getPhone());
         viewHolder.rmmDescription.setText(roomatesList.get(position).getDesctiption());
 

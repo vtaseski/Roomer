@@ -1,4 +1,4 @@
-package com.roomer.activities;
+package com.roomer.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.roomer.activities.R;
 import com.roomer.adapters.Main2Adapter;
-import com.roomer.adapters.MainAdapter;
-import com.roomer.models.Apartment;
 import com.roomer.models.Roommate;
 
 import org.json.JSONArray;

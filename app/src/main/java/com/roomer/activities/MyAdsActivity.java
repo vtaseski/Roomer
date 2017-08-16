@@ -1,5 +1,6 @@
 package com.roomer.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.roomer.activities.R;
@@ -45,19 +47,27 @@ public class MyAdsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         apartmentArrayList = new ArrayList<>();
         lvMineApartments = (ListView)findViewById(R.id.lvMineApartments);
+
+        lvMineApartments.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Apartment a = apartmentArrayList.get(position);
+                Bundle extras = new Bundle();
+                extras.putInt("id",a.getId());
+                extras.putString("gps",a.getGPS());
+                extras.putString("title",a.getTitle());
+                Intent myintent = new Intent(MyAdsActivity.this, DetailsActivity.class);
+                myintent.putExtras(extras);
+                startActivity(myintent);
+            }
+
+        });
+
         flag_loading = false;
 
         new getMineApartments().execute();

@@ -1,15 +1,9 @@
 package com.roomer.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,32 +19,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AbsListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.roomer.data.Data;
-import com.roomer.models.Apartment;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-
-
-import com.roomer.adapters.MainAdapter;
+import com.roomer.fragments.FlatsFragment;
+import com.roomer.fragments.RoommatesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,FlatsFragment.OnFragmentInteractionListener,
         RoommatesFragment.OnFragmentInteractionListener {
 
-
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    private String selectedFragment = "Stanovi";
     private ViewPager mViewPager;
     private TextView navUsername;
 
@@ -60,10 +40,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-
 
 
 
@@ -75,7 +52,6 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,8 +59,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Test", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if( mViewPager.getCurrentItem() == 0) {
+                    Log.i("Koj fragment", "FlatsFragment");
+                } else {
+                    Log.i("Koj fragment", "CimeriFragment");
+                }
             }
         });
 
@@ -119,31 +98,6 @@ public class MainActivity extends AppCompatActivity
             navigationView.inflateMenu(R.menu.navigation_loggedout);
         }
     }
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -162,20 +116,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -190,7 +131,6 @@ public class MainActivity extends AppCompatActivity
             switch (position) {
                 case 0:
                     return new FlatsFragment();
-
                 case 1:
                     return new RoommatesFragment();
             }
@@ -198,11 +138,16 @@ public class MainActivity extends AppCompatActivity
             return null;
         }
 
+        public int test(int position) {
+            return position;
+        }
+
         @Override
         public int getCount() {
             // Show 2 total pages.
             return 2;
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
@@ -223,15 +168,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.login) {
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
         } else if (id == R.id.logout) {
             Data d = new Data(this);
             d.logout();
             setNavigationMenu();
         } else if (id == R.id.mine) {
-            Intent loginIntent = new Intent(MainActivity.this, MyAdsActivity.class);
-            startActivity(loginIntent);
+            Intent i = new Intent(MainActivity.this, MyAdsActivity.class);
+            startActivity(i);
+        } else if (id == R.id.contactUs) {
+            Intent i = new Intent(MainActivity.this, ContactActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

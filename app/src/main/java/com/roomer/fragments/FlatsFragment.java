@@ -1,4 +1,4 @@
-package com.roomer.activities;
+package com.roomer.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.roomer.activities.DetailsActivity;
+import com.roomer.activities.R;
 import com.roomer.adapters.MainAdapter;
 import com.roomer.models.Apartment;
 
@@ -86,7 +88,9 @@ public class FlatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_flats, container, false);
+
         apartmentArrayList = new ArrayList<>();
 
         flag_loading = false;
