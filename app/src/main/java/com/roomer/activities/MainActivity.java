@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.roomer.data.Data;
 import com.roomer.models.Apartment;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private TextView navUsername;
 
 
     @Override
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity
 
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+
+
+
+
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -96,12 +103,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        navUsername = (TextView) headerView.findViewById(R.id.usernameTxt);
+
+
         Data d = new Data(this);
 
         if(d.isLoggedIn()) {
+            navUsername.setText("Најавен корисник \n" + d.userName());
             navigationView.getMenu().clear();
             navigationView.inflateMenu(R.menu.navigation_loggedin);
         } else {
+            navUsername.setText("Нема најавен корисник");
             navigationView.getMenu().clear();
             navigationView.inflateMenu(R.menu.navigation_loggedout);
         }

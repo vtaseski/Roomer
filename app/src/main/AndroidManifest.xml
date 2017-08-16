@@ -44,11 +44,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.roomer.activities.MainActivity" />
         </activity>
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBoWvO6OedkNH3NdysRkjOcNEBdPWgsJy8" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".MainActivity">
             <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyBoWvO6OedkNH3NdysRkjOcNEBdPWgsJy8" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roomer.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

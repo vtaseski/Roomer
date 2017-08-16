@@ -41,4 +41,9 @@ public class Data {
         SharedPreferences settings = ctx.getSharedPreferences("Pref", 0);
         return settings.getString("access_token", "");
     }
+
+    public String userName () {
+        SharedPreferences settings = ctx.getSharedPreferences("Pref", 0);
+        return settings.getString("username", "");
+    }
 }

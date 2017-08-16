@@ -13,10 +13,11 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/usernameTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Најавени сте како"
+        android:text="Нема најавен корисник"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
