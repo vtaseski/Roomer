@@ -31,4 +31,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">Регистрирање корисник</string>
     <string name="title_activity_contact">Контакт</string>
+    <string name="title_activity_add_ads">Додади оглас</string>
+    <string name="title_activity_add_roommate">Барам цимер</string>
 </resources>

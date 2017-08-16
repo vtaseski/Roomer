@@ -67,6 +67,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.roomer.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".AddAdsActivity"
+            android:label="@string/title_activity_add_ads"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roomer.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddRoommateActivity"
+            android:label="@string/title_activity_add_roommate"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roomer.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

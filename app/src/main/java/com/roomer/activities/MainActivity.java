@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -55,14 +56,24 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final Data d = new Data(this);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( mViewPager.getCurrentItem() == 0) {
-                    Log.i("Koj fragment", "FlatsFragment");
+
+                if(d.isLoggedIn()){
+                    if( mViewPager.getCurrentItem() == 0) {
+                        Intent i = new Intent(MainActivity.this, AddAdsActivity.class);
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(MainActivity.this, AddRoommateActivity.class);
+                        startActivity(i);
+                    }
                 } else {
-                    Log.i("Koj fragment", "CimeriFragment");
+                    Snackbar.make(view, "Мора да бидеш најавен за да додадеш оглас.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
