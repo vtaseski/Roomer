@@ -115,9 +115,7 @@ public class RoommatesFragment extends Fragment {
         private ProgressDialog dialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
-            // progressBar.setVisibility(View.VISIBLE);
-            // responseView.setText("");
-            this.dialog.setMessage("Please wait");
+            this.dialog.setMessage("педја wait");
             this.dialog.show();
         }
 

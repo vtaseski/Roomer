@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sex">
+        <item>Машко</item>
+        <item>Женско</item>
+    </string-array>
+
+    <string-array name="roommateSex">
+        <item>Сеедно</item>
+        <item>Машко</item>
+        <item>Женско</item>
+    </string-array>
+
+    <string-array name="threeChoice">
+        <item>Неважно</item>
+        <item>Да</item>
+        <item>Не</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Стан</item>
+        <item>Куќа</item>
+    </string-array>
+
+    <string-array name="municipalities">
+        <item>Карпош</item>
+        <item>Кисела вода</item>
+    </string-array>
+
+
+</resources>

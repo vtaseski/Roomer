@@ -43,7 +43,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Адреса:\nМиладин Поповиќ 4А, Карпош, Скопје, Р. Македонија"
+        android:text="Адреса:\nМиладин Поповиќ 4А, Карпош, Скопје,\nР. Македонија"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
         tools:layout_editor_absoluteX="38dp"

@@ -1,10 +1,14 @@
 package com.roomer.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -129,7 +133,7 @@ public class FlatsFragment extends Fragment {
 
 
         getAllApartments gaa = new getAllApartments();
-        gaa.execute("api/Apartments?take=3");
+        gaa.execute("api/Apartments/0/3/asc/asc");
         return view;
 
     }
@@ -137,7 +141,7 @@ public class FlatsFragment extends Fragment {
     public void addItems() {
         skip += 3;
         String skipString = skip + "";
-        new getAllApartments().execute("api/Apartments?skip=" + skipString + "&take=4");
+        new getAllApartments().execute("api/Apartments/" + skipString + "/4/asc/asc");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -169,10 +173,8 @@ public class FlatsFragment extends Fragment {
         private ProgressDialog dialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
-            // progressBar.setVisibility(View.VISIBLE);
-            // responseView.setText("");
-            this.dialog.setMessage("Please wait");
-            this.dialog.show();
+          this.dialog.setMessage("Податоците се вчитуваат");
+          this.dialog.show();
         }
 
         protected String doInBackground(String... params) {
@@ -201,12 +203,12 @@ public class FlatsFragment extends Fragment {
         }
 
         protected void onPostExecute(String response) {
-            Log.i("INFO", response);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             if(response == null) {
                 response = "THERE WAS AN ERROR";
-            } else {;
-                Log.i("INFO", response);
-
+            } else {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -240,9 +242,7 @@ public class FlatsFragment extends Fragment {
                         );
                         apartmentArrayList.add(a);
                     }
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
+
                     if(firstLoad) {
                         mainAdapter = new MainAdapter(apartmentArrayList, getActivity());
                         lvApartments.setAdapter(mainAdapter);

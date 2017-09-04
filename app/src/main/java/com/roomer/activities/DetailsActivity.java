@@ -66,7 +66,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         DetailsActivity.getDetails gaa = new DetailsActivity.getDetails();
-        gaa.execute("api/Apartments/" + s);
+        gaa.execute("api/Apartments/Get/" + s);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
