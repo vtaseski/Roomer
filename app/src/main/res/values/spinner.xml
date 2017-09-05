@@ -12,7 +12,7 @@
     </string-array>
 
     <string-array name="threeChoice">
-        <item>Неважно</item>
+
         <item>Да</item>
         <item>Не</item>
     </string-array>
@@ -23,8 +23,51 @@
     </string-array>
 
     <string-array name="municipalities">
+        <item>Центар</item>
         <item>Карпош</item>
         <item>Кисела вода</item>
+        <item>Гази баба</item>
+        <item>Аеродром</item>
+        <item>Ѓорче Петров</item>
+        <item>Штип</item>
+        <item>Битола</item>
+        <item>Бутел</item>
+        <item>Куманово</item>
+        <item>Охрид</item>
+        <item>Гевгелија</item>
+        <item>Дебар</item>
+        <item>Илинден</item>
+        <item>Тетово</item>
+        <item>Арачиново</item>
+        <item>Струмица</item>
+        <item>Валандово</item>
+        <item>Велес</item>
+        <item>Виница</item>
+        <item>Дојран</item>
+    </string-array>
+
+    <string-array name="municipalitiesValues">
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
     </string-array>
 
 
