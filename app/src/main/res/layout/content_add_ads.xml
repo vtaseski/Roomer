@@ -13,9 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="40dp"
-
-
-        tools:context="com.roomer.activities.AddAdsActivity">
+        tools:context="com.roomer.activities.AddAdsActivity"
+        >
 
 
         <TextView
