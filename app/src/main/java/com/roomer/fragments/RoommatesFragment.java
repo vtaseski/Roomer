@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.roomer.activities.R;
 import com.roomer.adapters.Main2Adapter;
+import com.roomer.adapters.MainAdapter;
 import com.roomer.models.Roommate;
 
 import org.json.JSONArray;
@@ -99,14 +101,30 @@ public class RoommatesFragment extends Fragment {
 
         flag_loading = false;
         lvRoomMates = (ListView)view.findViewById(R.id.lvRoomMates);
-        new getRoomMates().execute("api/Roommates/Get?take=6");
 
+        lvRoomMates.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.e("test", "on scrool");
+            }
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0) {
+                    if(flag_loading == false) {
+                        flag_loading = true;
+                        addItems();
+                    }
+                }
+            }
+        });
+        new getRoomMates().execute("api/Roommates/Get/?skip=0&take=3");
         return view;
     }
     public void addItems() {
         skip += 3;
         String skipString = skip + "";
         new getRoomMates().execute("api/Roommates/Get?skip=" + skipString + "&take=4");
+
     }
 
     class getRoomMates extends AsyncTask<String, Void, String> {
@@ -115,7 +133,7 @@ public class RoommatesFragment extends Fragment {
         private ProgressDialog dialog = new ProgressDialog(getActivity());
 
         protected void onPreExecute() {
-            this.dialog.setMessage("педја wait");
+            this.dialog.setMessage("Податоците се вчитуваат");
             this.dialog.show();
         }
 
@@ -145,6 +163,9 @@ public class RoommatesFragment extends Fragment {
         }
 
         protected void onPostExecute(String response) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
             Log.i("INFO", response);
             if(response == null) {
                 response = "THERE WAS AN ERROR";
@@ -153,10 +174,17 @@ public class RoommatesFragment extends Fragment {
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
+
                     for (int i = 0; i < jsonArray.length(); i++) {
 
+
                         JSONObject o = jsonArray.getJSONObject(i);
+
                         JSONObject u = o.getJSONObject("User");
+                        JSONArray m= o.getJSONArray("Municipalities");
+                        JSONObject tmp=m.getJSONObject(0);
+
+                        Log.i("asjdiasdjas", m.getJSONObject(0).getString("NameMkd"));
 
 
 
@@ -177,19 +205,25 @@ public class RoommatesFragment extends Fragment {
                                 o.getBoolean("FixedPrice"),
                                 u.getString("FirstName"),
                                 u.getString("LastName"),
-                                u.getString("PicturePath")
+                                u.getString("PicturePath"),
+                                tmp.getString("NameMkd")
+
 
 
                         );
                         roommateArrayList.add(r);
                     }
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
 
+
+
+                    if(firstLoad) {
                         main2Adapter = new Main2Adapter(roommateArrayList, getActivity());
                         lvRoomMates.setAdapter(main2Adapter);
+                        firstLoad = false;
+                    }
 
+                    flag_loading = false;
+                    main2Adapter.notifyDataSetChanged();
 
 
                 } catch (JSONException e) {

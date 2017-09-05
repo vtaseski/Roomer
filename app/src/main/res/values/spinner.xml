@@ -17,15 +17,58 @@
         <item>Не</item>
     </string-array>
 
+    <string-array name="tip">
+        <item>Издавам</item>
+        <item>Продавам</item>
+
+    </string-array>
+
+    <string-array name="currency">
+        <item>Евра</item>
+        <item>Денари</item>
+
+    </string-array>
+
+
+
+
     <string-array name="categories">
         <item>Стан</item>
         <item>Куќа</item>
+        <item>Гарсоњера</item>
+        <item>Барака</item>
+        <item>Деловен простор</item>
+        <item>Спрат</item>
+        <item>Останато</item>
     </string-array>
 
     <string-array name="municipalities">
+        <item>Центар</item>
         <item>Карпош</item>
         <item>Кисела вода</item>
+        <item>Гази баба</item>
+        <item>Аеродром</item>
+        <item>Ѓорче Петров</item>
+        <item>Штип</item>
+        <item>Битола</item>
+        <item>Бутел</item>
+        <item>Куманово</item>
+        <item>Охрид</item>
+        <item>Гевгелија</item>
+        <item>Дебар</item>
+        <item>Илинден</item>
+        <item>Тетово</item>
+        <item>Арачиново</item>
+        <item>Струмица</item>
+        <item>Валандово</item>
+        <item>Велес</item>
+        <item>Виница</item>
+        <item>Дојран</item>
+        <item>Берово</item>
+
     </string-array>
+
+
 
 
 </resources>

@@ -1,5 +1,7 @@
 package com.roomer.models;
 
+import android.icu.util.MeasureUnit;
+
 /**
  * Created by antoniotodorov on 8/12/17.
  */
@@ -22,11 +24,20 @@ public class Roommate {
     public String FirstName;
     public String SecondName;
     public String Picture;
+    public String Municipality;
 
+
+    public String getMunicipality() {
+        return Municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        Municipality = municipality;
+    }
 
     public Roommate(int id, String userId, String title, String facebook, String phone, String desctiption,
                     String created, int priceFrom, int priceTo, int sqMetersFrom, int sqMetersTo,
-                    boolean separateRoom, boolean fixedPrice, String firstName, String secondName, String picture) {
+                    boolean separateRoom, boolean fixedPrice, String firstName, String secondName, String picture, String municipality) {
         Id = id;
         UserId = userId;
         Title = title;
@@ -43,6 +54,7 @@ public class Roommate {
         FirstName = firstName;
         SecondName = secondName;
         Picture=picture;
+        Municipality=municipality;
 
 
 
