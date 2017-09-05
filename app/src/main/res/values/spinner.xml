@@ -65,31 +65,33 @@
         <item>Виница</item>
         <item>Дојран</item>
         <item>Берово</item>
+        <item>Кавадарци</item>
 
     </string-array>
 
     <string-array name="municipalitiesValues">
+        <item>MK-77</item>
         <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
-        <item>MK-38</item>
+        <item>MK-39</item>
+        <item>MK-17</item>
+        <item>MK-01</item>
+        <item>MK-29</item>
+        <item>MK-83</item>
+        <item>MK-04</item>
+        <item>MK-09</item>
+        <item>MK-47</item>
+        <item>MK-58</item>
+        <item>MK-18</item>
+        <item>MK-21</item>
+        <item>MK-34</item>
+        <item>MK-76</item>
+        <item>MK-73</item>
+        <item>MK-10</item>
+        <item>MK-13</item>
+        <item>MK-14</item>
+        <item>MK-26</item>
+        <item>MK-03</item>
+        <item>МК-36</item>
 
     </string-array>
 
