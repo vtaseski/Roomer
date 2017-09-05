@@ -49,7 +49,7 @@ public class Main2Adapter extends BaseAdapter {
     }
     public class ViewHolder {
         ImageView rmmImage;
-        TextView rmmTitle, rmmName, rmmPrice, rmmPhone, rmmDate, rmmSeparateRoom, rmmSqMeters, rmmDescription;
+        TextView rmmTitle, rmmName, rmmPrice, rmmPhone, rmmDate, rmmSeparateRoom, rmmSqMeters, rmmDescription, rmmMunicipality;
     }
 
     @Override
@@ -73,6 +73,7 @@ public class Main2Adapter extends BaseAdapter {
             viewHolder.rmmDate=(TextView) rowView.findViewById(R.id.rmmDate);
             viewHolder.rmmPhone=(TextView) rowView.findViewById(R.id.rmmPhone);
             viewHolder.rmmDescription=(TextView) rowView.findViewById(R.id.rmmDescription);
+            viewHolder.rmmMunicipality=(TextView) rowView.findViewById(R.id.rmmMunicipality);
             rowView.setTag(viewHolder);
 
         } else {
@@ -87,6 +88,7 @@ public class Main2Adapter extends BaseAdapter {
         viewHolder.rmmDate.setText(roomatesList.get(position).getCreated().split("T")[0] + " " + roomatesList.get(position).getCreated().split("T")[1].substring(0,5) + " ч");
         viewHolder.rmmPhone.setText(roomatesList.get(position).getPhone());
         viewHolder.rmmDescription.setText(roomatesList.get(position).getDesctiption());
+        viewHolder.rmmMunicipality.setText(roomatesList.get(position).getMunicipality());
 
         return rowView;
 

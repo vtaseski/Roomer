@@ -17,9 +17,29 @@
         <item>Не</item>
     </string-array>
 
+    <string-array name="tip">
+        <item>Издавам</item>
+        <item>Продавам</item>
+
+    </string-array>
+
+    <string-array name="currency">
+        <item>Евра</item>
+        <item>Денари</item>
+
+    </string-array>
+
+
+
+
     <string-array name="categories">
         <item>Стан</item>
         <item>Куќа</item>
+        <item>Гарсоњера</item>
+        <item>Барака</item>
+        <item>Деловен простор</item>
+        <item>Спрат</item>
+        <item>Останато</item>
     </string-array>
 
     <string-array name="municipalities">
@@ -44,6 +64,8 @@
         <item>Велес</item>
         <item>Виница</item>
         <item>Дојран</item>
+        <item>Берово</item>
+
     </string-array>
 
     <string-array name="municipalitiesValues">
@@ -68,7 +90,10 @@
         <item>MK-38</item>
         <item>MK-38</item>
         <item>MK-38</item>
+
     </string-array>
+
+
 
 
 </resources>
