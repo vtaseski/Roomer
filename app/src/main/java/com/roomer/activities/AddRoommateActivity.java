@@ -1,5 +1,8 @@
 package com.roomer.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +18,7 @@ import android.widget.Spinner;
 
 import com.roomer.activities.R;
 import com.roomer.data.Data;
+import com.roomer.fragments.RoommatesFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -275,6 +279,12 @@ public class AddRoommateActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+            Intent i  = new Intent (AddRoommateActivity.this, MainActivity.class);
+            i.putExtra("ActiveFragment", 1);
+            startActivity(i);
+
+
+
         }
     }
 }
