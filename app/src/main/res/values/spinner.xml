@@ -12,7 +12,7 @@
     </string-array>
 
     <string-array name="threeChoice">
-        <item>Неважно</item>
+
         <item>Да</item>
         <item>Не</item>
     </string-array>
@@ -65,6 +65,31 @@
         <item>Виница</item>
         <item>Дојран</item>
         <item>Берово</item>
+
+    </string-array>
+
+    <string-array name="municipalitiesValues">
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
+        <item>MK-38</item>
 
     </string-array>
 
