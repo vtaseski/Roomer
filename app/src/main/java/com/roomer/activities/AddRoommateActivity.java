@@ -10,7 +10,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -58,6 +60,7 @@ public class AddRoommateActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,9 @@ public class AddRoommateActivity extends AppCompatActivity {
         mM2To = (AutoCompleteTextView) findViewById(R.id.txtToSqlMeters);
         mCategories = (Spinner) findViewById(R.id.spnCategory);
         mMunicipalities = (Spinner) findViewById(R.id.spnMunicipality);
+
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -209,7 +209,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     TextView txtLocation1=(TextView) findViewById(R.id.txtLocation1);
                     txtLocation1.setText("Локација:  " + a.getLocation());
                     TextView txtPhone=(TextView) findViewById(R.id.txtPhone);
-                    txtPhone.setText("Тел:"+ a.getPhone().substring(0,12));
+                    txtPhone.setText("Тел: "+ a.getPhone());
                     TextView txtCreated=(TextView) findViewById(R.id.txtCreated);
                     txtCreated.setText(a.getCreated().split("T")[0]);
                     TextView txtDescription= (TextView) findViewById(R.id.txtDescription);

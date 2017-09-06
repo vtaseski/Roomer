@@ -12,8 +12,8 @@
 
     <ScrollView
         android:id="@+id/add_roommate"
-        android:layout_width="0dp"
-        android:layout_height="587dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,7 +21,10 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
 
             <android.support.design.widget.TextInputLayout
@@ -42,6 +45,8 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+
                     android:hint="Наслов"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1" />
@@ -65,6 +70,8 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/txtDescription"
+                    android:maxLines="1"
+                    android:imeOptions="actionSend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -195,6 +202,7 @@
                     android:id="@+id/txtYears"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="Години"
                     android:inputType="textNoSuggestions|numberSigned"
                     android:maxLines="1" />
@@ -247,6 +255,7 @@
                     android:id="@+id/txtRoommateYears"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="Години на цимерот"
                     android:inputType="textNoSuggestions|numberSigned"
                     android:maxLines="1" />
@@ -272,6 +281,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Facebook профил"
+                    android:imeOptions="actionNext"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1" />
 
@@ -295,6 +305,7 @@
                     android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="Телефон"
                     android:inputType="textNoSuggestions|phone"
                     android:maxLines="1" />
@@ -319,6 +330,7 @@
                     android:id="@+id/txtPriceFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="Цена од"
                     android:inputType="textNoSuggestions|number"
                     android:maxLines="1" />
@@ -343,6 +355,7 @@
                     android:id="@+id/txtToPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="Цена до"
                     android:inputType="textNoSuggestions|number"
                     android:maxLines="1" />
@@ -367,6 +380,7 @@
                     android:id="@+id/txtFromSqlMeters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:hint="m2 од"
                     android:inputType="textNoSuggestions|number"
                     android:maxLines="1" />
@@ -392,6 +406,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="m2 до"
+                    android:imeOptions="actionDone"
                     android:inputType="textNoSuggestions|number"
                     android:maxLines="1" />
 
